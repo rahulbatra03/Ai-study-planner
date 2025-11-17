@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Study Plan Result</title>
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+<header class="topbar">
+  <img src="{{ url_for('static', filename='favicon.png') }}" class="logo">
+  <h1>Study Plan Result</h1>
+</header>
+
+<section class="card large-card">
+
+  <h2>📚 Subjects: {{ subjects }} </h2>
+  <p><b>Days:</b> {{ days }} • <b>Hours/day:</b> {{ hours }}</p>
+
+  <h3>📌 Structured Plan</h3>
+  <pre class="output-box">{{ plan_text }}</pre>
+
+  <h3>🎯 Suggested Learning Resources</h3>
+  <pre class="output-box">{{ topics_text }}</pre>
+
+  <form method="post" action="/download_pdf">
+    <input type="hidden" name="title" value="Study Plan: {{ subjects }}">
+    <input type="hidden" name="plan_text" value="{{ plan_text }}">
+    <input type="hidden" name="topics_text" value="{{ topics_text }}">
+    <button class="btn download">⬇ Download PDF</button>
+  </form>
+
+  <a href="/" class="back">🔙 Generate Another Plan</a>
+
+</section>
+
+</body>
+</html>
