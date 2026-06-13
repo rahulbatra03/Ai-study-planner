@@ -28,17 +28,27 @@ class ScheduleAgent:
     def improve_schedule(self, study_plan):
         prompt = f"""
         You are an AI Study Schedule Improver.
-        Improve the following study plan by making it more structured,
-        clear, productive, and include time distribution + short breaks.
+        Improve this study plan - make it CONCISE, clear, and actionable.
 
-        Study Plan:
+        Original Plan:
         {study_plan}
 
-        Output format:
-        📌 Improved Study Plan:
+        RULES:
+        - Keep summary brief (max 2 lines per day)
+        - Add 10-min breaks between 50-min study blocks
+        - Use clear time blocks: Study | Break | Study
+        - Include 1-2 key productivity tips only
+        - Total output should be readable in 2 minutes
+
+        Format:
+        ⏰ IMPROVED PLAN (Concise Version):
+
         Day X:
-        - Task (time)
-        - Task (time)
+        [Time] | Study: [Topic] (focus: X)
+        [Time] | Break
+        [Time] | Study: [Topic] (focus: Y)
+
+        💡 Tips: [1-2 bullet points max]
         """
         response = self.model.generate_content(prompt)
         return response.text

@@ -6,31 +6,36 @@ class ResearchAgent:
 
     def get_topics_and_resources(self, subjects):
         prompt = f"""
-        You are an expert Academic Research AI.
+        You are an expert Academic Research AI. Create a CONCISE resource list.
 
-        The student wants to study the following subjects:
-        {subjects}
+        Subjects: {subjects}
 
-        For each subject:
-        1. List the most important topics to study.
-        2. Suggest useful learning resources such as:
-           - YouTube channels
-           - Free courses
-           - Websites
-           - Notes/PDF sources
+        RULES:
+        - List ONLY 5-7 most important topics per subject
+        - Suggest ONLY top 3-4 resources (not 10+)
+        - Keep descriptions SHORT (1 line max)
+        - YouTube channels in a SEPARATE highlighted section
+        - Be specific: include channel/course names
 
-        Output format:
+        Output in EXACTLY this format:
 
-         Subject Name:
-        Topics:
-        - Topic 1
-        - Topic 2
-        - Topic 3
+        📚 SUBJECT: [Subject Name]
 
-        Resources:
-        - Resource 1
-        - Resource 2
-        - Resource 3
+        🎯 Key Topics:
+        • [Topic 1]
+        • [Topic 2]
+        • [Topic 3]
+        (max 7 topics)
+
+        📖 Best Resources:
+        • [Website/Platform]: [Brief description]
+        • [Website/Platform]: [Brief description]
+
+        🎥 YOUTUBE CHANNELS (Highlighted):
+        ▶ [Channel Name]: [One line description]
+        ▶ [Channel Name]: [One line description]
+
+        Keep entire output under 300 words per subject.
         """
         response = self.model.generate_content(prompt)
         return response.text
